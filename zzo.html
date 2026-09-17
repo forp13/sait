@@ -1,0 +1,2271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ServerParts – подбор серверных комплектующих</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0b1a33;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Header --- */
+        header {
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #0b1a33;
+            cursor: pointer;
+        }
+
+        .logo i {
+            color: #2563eb;
+            font-size: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 28px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #1e293b;
+            transition: color 0.2s;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: #2563eb;
+        }
+
+        .nav a.active {
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: #1e293b;
+        }
+
+        .cart-icon span {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #dc2626;
+            color: #fff;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            background: transparent;
+            color: inherit;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+        }
+
+        .btn-outline:hover {
+            background: #eff6ff;
+        }
+
+        .btn-success {
+            background: #16a34a;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+
+        /* --- Pages (SPA) --- */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- HOME PAGE --- */
+        .hero {
+            padding: 64px 0 48px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 700px;
+            margin: 0 auto 36px;
+        }
+
+        .search-box {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #fff;
+            padding: 8px 8px 8px 24px;
+            border-radius: 60px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            max-width: 780px;
+            margin: 0 auto;
+            border: 1px solid #e2e8f0;
+        }
+
+        .search-box i {
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 160px;
+            padding: 12px 0;
+            font-size: 1rem;
+            background: transparent;
+            color: #0b1a33;
+        }
+
+        .search-box input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-box select {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 1rem;
+            color: #1e293b;
+            padding: 8px 4px 8px 0;
+            cursor: pointer;
+            border-left: 1px solid #e2e8f0;
+            padding-left: 16px;
+            font-weight: 500;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 20px;
+            margin: 40px 0 20px;
+        }
+
+        .category-chip {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .category-chip i {
+            color: #2563eb;
+        }
+
+        .category-chip:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 56px 0 32px;
+            text-align: center;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .component-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 24px 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .component-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+            border-color: #dbeafe;
+        }
+
+        .component-card i {
+            font-size: 2.8rem;
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .component-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .component-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .component-card .badge {
+            display: inline-block;
+            margin-top: 12px;
+            background: #eef2ff;
+            color: #2563eb;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0 30px;
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 40px 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f1f5f9;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-item i {
+            font-size: 2.2rem;
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .feature-item h4 {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .feature-item p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* --- CATALOG PAGE --- */
+        .catalog-header {
+            padding: 40px 0 24px;
+            text-align: center;
+        }
+
+        .catalog-header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .catalog-header p {
+            color: #475569;
+            font-size: 1.1rem;
+        }
+
+        .catalog-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .catalog-tab {
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: #f1f5f9;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .catalog-tab.active {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            background: #fff;
+            padding: 16px 24px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            margin: 24px 0 32px;
+            align-items: center;
+        }
+
+        .filter-bar label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #1e293b;
+        }
+
+        .filter-bar select,
+        .filter-bar input {
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            background: #fff;
+            outline: none;
+        }
+
+        .filter-bar select:focus,
+        .filter-bar input:focus {
+            border-color: #2563eb;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .catalog-item {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #f1f5f9;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .catalog-item:hover {
+            border-color: #dbeafe;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .catalog-item .item-icon {
+            font-size: 2rem;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+
+        .catalog-item h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .catalog-item .specs {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin: 6px 0 12px;
+        }
+
+        .catalog-item .price {
+            font-weight: 700;
+            color: #0b1a33;
+            font-size: 1.1rem;
+        }
+
+        /* --- CART PAGE --- */
+        .cart-page {
+            padding: 40px 0;
+        }
+
+        .cart-page h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .cart-table {
+            width: 100%;
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 16px 20px;
+            text-align: left;
+        }
+
+        .cart-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 60px;
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        /* --- LOGIN PAGE --- */
+        .login-page {
+            padding: 60px 0;
+        }
+
+        .login-container {
+            max-width: 440px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .login-container h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .login-container .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 28px;
+        }
+
+        .login-container .form-group {
+            margin-bottom: 16px;
+        }
+
+        .login-container label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .login-container input:focus {
+            border-color: #2563eb;
+        }
+
+        .tab-switch {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tab-switch button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: #f8fafc;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tab-switch button.active {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        /* --- BUILDS PAGE --- */
+        .builds-page {
+            padding: 40px 0;
+        }
+
+        .builds-page h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .build-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .build-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .build-card .build-specs {
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+
+        .build-card .build-price {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #2563eb;
+        }
+
+        .build-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+
+        /* --- CONFIGURATOR PAGE --- */
+        .configurator {
+            padding: 40px 0;
+        }
+
+        .configurator h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .configurator .subtitle {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 40px;
+        }
+
+        .config-steps {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            padding: 8px 20px;
+            border-radius: 40px;
+            background: #f1f5f9;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .step.active {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .step.done {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .config-area {
+            background: #fff;
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+            min-height: 300px;
+        }
+
+        .config-area .step-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .config-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .config-option {
+            padding: 16px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .config-option:hover {
+            border-color: #2563eb;
+        }
+
+        .config-option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .config-option .opt-name {
+            font-weight: 600;
+        }
+
+        .config-option .opt-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .config-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 32px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .compat-warning {
+            margin-top: 16px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .compat-warning.show {
+            display: block;
+        }
+
+        .compat-warning.error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .compat-warning.ok {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        .history-block {
+            margin-top: 40px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .history-block h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .history-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .history-item .conf-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .history-item .conf-details {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .history-item .conf-date {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        /* --- COMPATIBILITY PAGE --- */
+        .compatibility {
+            padding: 40px 0;
+        }
+
+        .compatibility h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .compatibility .subtitle {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 32px;
+        }
+
+        .compat-form {
+            background: #fff;
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .compat-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .compat-form label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .compat-form select,
+        .compat-form input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 1rem;
+            background: #fff;
+            outline: none;
+        }
+
+        .compat-form select:focus,
+        .compat-form input:focus {
+            border-color: #2563eb;
+        }
+
+        .compat-result {
+            margin-top: 24px;
+            padding: 20px;
+            border-radius: 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            display: none;
+        }
+
+        .compat-result.show {
+            display: block;
+        }
+
+        .compat-result .icon {
+            font-size: 3rem;
+            margin-bottom: 8px;
+        }
+
+        .compat-result .icon.success {
+            color: #16a34a;
+        }
+        .compat-result .icon.error {
+            color: #dc2626;
+        }
+        .compat-result .icon.warning {
+            color: #f59e0b;
+        }
+
+        /* --- CONTACT PAGE --- */
+        .contact {
+            padding: 40px 0;
+        }
+
+        .contact h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .contact .subtitle {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 40px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: #fff;
+            border-radius: 24px;
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 16px;
+        }
+
+        .contact-form label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .contact-info .info-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .contact-info .info-item i {
+            font-size: 1.8rem;
+            color: #2563eb;
+            width: 48px;
+            text-align: center;
+        }
+
+        .contact-info .info-item div {
+            font-size: 0.95rem;
+            color: #1e293b;
+        }
+
+        .contact-info .info-item div strong {
+            display: block;
+            font-weight: 600;
+        }
+
+        /* --- ABOUT PAGE --- */
+        .about-page {
+            padding: 40px 0;
+        }
+
+        .about-page h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid #e2e8f0;
+            font-size: 1.05rem;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        /* --- PAYMENT PAGE --- */
+        .payment-page {
+            padding: 40px 0;
+        }
+
+        .payment-page h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .payment-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .payment-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 24px 0 12px;
+        }
+
+        .payment-content p,
+        .payment-content li {
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px 0 24px;
+            margin-top: 56px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .footer-col h5 {
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .footer-col ul li a:hover {
+            color: #2563eb;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .footer-bottom .socials i {
+            margin-left: 16px;
+            font-size: 1.2rem;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .footer-bottom .socials i:hover {
+            color: #2563eb;
+        }
+
+        /* --- Toast notification --- */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0b1a33;
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 16px;
+            font-weight: 500;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .search-box {
+                border-radius: 30px;
+                padding: 12px;
+            }
+            .search-box select {
+                border-left: none;
+                padding-left: 0;
+                width: 100%;
+                margin-top: 4px;
+            }
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav {
+                justify-content: center;
+                gap: 16px;
+            }
+            .header-actions {
+                justify-content: center;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .config-area {
+                padding: 20px;
+            }
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .catalog-header h1 {
+                font-size: 1.8rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .toast {
+                left: 16px;
+                right: 16px;
+                bottom: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo" onclick="navigateTo('home')">
+                <i class="fas fa-server"></i>
+                <span>ServerParts</span>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a class="active" data-page="home" onclick="navigateTo('home')">Главная</a>
+                <a data-page="catalog" onclick="navigateTo('catalog')">Каталог</a>
+                <a data-page="configurator" onclick="navigateTo('configurator')">Конфигуратор</a>
+                <a data-page="compatibility" onclick="navigateTo('compatibility')">Совместимость</a>
+                <a data-page="builds" onclick="navigateTo('builds')">Готовые сборки</a>
+                <a data-page="contact" onclick="navigateTo('contact')">Контакты</a>
+            </nav>
+            <div class="header-actions">
+                <span class="cart-icon" onclick="openCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount">0</span>
+                </span>
+                <button class="btn btn-outline" onclick="navigateTo('login')"><i class="fas fa-sign-in-alt"></i> Войти</button>
+                <button class="btn btn-primary" onclick="navigateTo('configurator')"><i class="fas fa-cubes"></i> Конфигуратор</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============ HOME PAGE ============ -->
+    <div class="page active" id="page-home">
+        <div class="container">
+            <section class="hero">
+                <h1>Соберите надёжный <span>сервер</span><br /> за 5 минут</h1>
+                <p>Подбор процессоров, памяти, накопителей и сетевых карт для вашей задачи — от дата-центра до рабочей станции.</p>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Найти комплектующие..." value="Xeon Gold" />
+                    <select>
+                        <option>Все категории</option>
+                        <option>Процессоры</option>
+                        <option>Оперативная память</option>
+                        <option>Диски (SSD/HDD)</option>
+                        <option>Материнские платы</option>
+                        <option>Сетевые карты</option>
+                    </select>
+                    <button class="btn" onclick="navigateTo('catalog')"><i class="fas fa-arrow-right"></i> Подобрать</button>
+                </div>
+                <div class="categories">
+                    <span class="category-chip" onclick="navigateTo('catalog')"><i class="fas fa-microchip"></i> Процессоры</span>
+                    <span class="category-chip" onclick="navigateTo('catalog')"><i class="fas fa-memory"></i> Оперативная память</span>
+                    <span class="category-chip" onclick="navigateTo('catalog')"><i class="fas fa-hdd"></i> Накопители</span>
+                    <span class="category-chip" onclick="navigateTo('catalog')"><i class="fas fa-microchip"></i> Материнские платы</span>
+                    <span class="category-chip" onclick="navigateTo('catalog')"><i class="fas fa-plug"></i> Блоки питания</span>
+                    <span class="category-chip" onclick="navigateTo('catalog')"><i class="fas fa-network-wired"></i> Сетевые карты</span>
+                </div>
+            </section>
+
+            <h2 class="section-title">Популярные комплектующие</h2>
+            <div class="components-grid">
+                <div class="component-card" onclick="navigateTo('catalog')">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Процессоры</h3>
+                    <p>Intel Xeon, AMD EPYC</p>
+                    <span class="badge">84 модели</span>
+                </div>
+                <div class="component-card" onclick="navigateTo('catalog')">
+                    <i class="fas fa-memory"></i>
+                    <h3>Оперативная память</h3>
+                    <p>DDR4, DDR5, ECC</p>
+                    <span class="badge">126 моделей</span>
+                </div>
+                <div class="component-card" onclick="navigateTo('catalog')">
+                    <i class="fas fa-hdd"></i>
+                    <h3>Накопители</h3>
+                    <p>NVMe, SATA, SAS</p>
+                    <span class="badge">97 моделей</span>
+                </div>
+                <div class="component-card" onclick="navigateTo('catalog')">
+                    <i class="fas fa-server"></i>
+                    <h3>Материнские платы</h3>
+                    <p>ATX, E-ATX, Mini-ITX</p>
+                    <span class="badge">43 модели</span>
+                </div>
+                <div class="component-card" onclick="navigateTo('catalog')">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Блоки питания</h3>
+                    <p>Redundant, 80+ Titanium</p>
+                    <span class="badge">29 моделей</span>
+                </div>
+                <div class="component-card" onclick="navigateTo('catalog')">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Сетевые карты</h3>
+                    <p>10GbE, 25GbE, Fibre</p>
+                    <span class="badge">34 модели</span>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Мгновенный подбор</h4>
+                    <p>Умный фильтр по совместимости</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-cube"></i>
+                    <h4>Готовые сборки</h4>
+                    <p>Для виртуализации, хранения, AI</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-double"></i>
+                    <h4>Совместимость</h4>
+                    <p>Проверка сокетов и чипсетов</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-truck"></i>
+                    <h4>Быстрая доставка</h4>
+                    <p>Со склада в Москве и в регионах</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ CATALOG PAGE ============ -->
+    <div class="page" id="page-catalog">
+        <div class="container">
+            <div class="catalog-header">
+                <h1>Каталог комплектующих</h1>
+                <p>Более 400 компонентов для серверов любой конфигурации</p>
+            </div>
+
+            <div class="catalog-tabs" id="catalogTabs">
+                <button class="catalog-tab active" data-cat="all">Все</button>
+                <button class="catalog-tab" data-cat="cpu">Процессоры</button>
+                <button class="catalog-tab" data-cat="ram">Память</button>
+                <button class="catalog-tab" data-cat="storage">Накопители</button>
+                <button class="catalog-tab" data-cat="mb">Материнские платы</button>
+                <button class="catalog-tab" data-cat="psu">Блоки питания</button>
+                <button class="catalog-tab" data-cat="net">Сетевые карты</button>
+                <button class="catalog-tab" data-cat="cables">Кабели и коммутация</button>
+                <button class="catalog-tab" data-cat="ups">ИБП</button>
+                <button class="catalog-tab" data-cat="rack">Шкафы и стойки</button>
+            </div>
+
+            <div class="filter-bar">
+                <label>Цена:</label>
+                <input type="number" id="priceFrom" placeholder="от" style="width:100px;" />
+                <input type="number" id="priceTo" placeholder="до" style="width:100px;" />
+                <button class="btn btn-primary btn-sm" onclick="applyPriceFilter()"><i class="fas fa-filter"></i> Применить</button>
+                <button class="btn btn-outline btn-sm" onclick="resetPriceFilter()">Сбросить</button>
+            </div>
+
+            <div class="catalog-grid" id="catalogGrid">
+                <!-- JS заполнит -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ CART PAGE ============ -->
+    <div class="page" id="page-cart">
+        <div class="container cart-page">
+            <h1>Корзина</h1>
+            <div id="cartPageContent"></div>
+        </div>
+    </div>
+
+    <!-- ============ LOGIN PAGE ============ -->
+    <div class="page" id="page-login">
+        <div class="container login-page">
+            <div class="login-container">
+                <div class="tab-switch">
+                    <button id="tabLogin" class="active" onclick="switchLoginTab('login')">Вход</button>
+                    <button id="tabRegister" onclick="switchLoginTab('register')">Регистрация</button>
+                </div>
+                <div id="formLogin">
+                    <h2>Вход</h2>
+                    <p class="subtitle">Войдите в личный кабинет</p>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="example@mail.ru" />
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" placeholder="••••••••" />
+                    </div>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="showToast('Вход выполнен!')">Войти</button>
+                </div>
+                <div id="formRegister" style="display:none;">
+                    <h2>Регистрация</h2>
+                    <p class="subtitle">Создайте аккаунт</p>
+                    <div class="form-group">
+                        <label>Имя</label>
+                        <input type="text" placeholder="Иван" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="example@mail.ru" />
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" placeholder="••••••••" />
+                    </div>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="showToast('Регистрация успешна!')">Зарегистрироваться</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ CONFIGURATOR PAGE ============ -->
+    <div class="page" id="page-configurator">
+        <div class="container">
+            <div class="configurator">
+                <h1>Конфигуратор сервера</h1>
+                <p class="subtitle">Шаг за шагом соберите идеальную конфигурацию</p>
+
+                <div class="config-steps" id="configSteps">
+                    <span class="step active" data-step="0">1. Процессор</span>
+                    <span class="step" data-step="1">2. Мат. плата</span>
+                    <span class="step" data-step="2">3. Память</span>
+                    <span class="step" data-step="3">4. Накопители</span>
+                    <span class="step" data-step="4">5. Блок питания</span>
+                    <span class="step" data-step="5">6. Сеть</span>
+                    <span class="step" data-step="6">7. ИБП</span>
+                    <span class="step" data-step="7">8. Шкаф</span>
+                </div>
+
+                <div class="config-area" id="configArea">
+                    <div class="step-title" id="configStepTitle">Выберите процессор</div>
+                    <div class="config-options" id="configOptions"></div>
+                    <div class="compat-warning" id="compatWarning"></div>
+                    <div class="config-nav">
+                        <button class="btn btn-outline" id="configPrev" onclick="configPrev()"><i class="fas fa-arrow-left"></i> Назад</button>
+                        <button class="btn btn-primary" id="configNext" onclick="configNext()">Далее <i class="fas fa-arrow-right"></i></button>
+                        <button class="btn btn-success" id="configFinish" onclick="configFinish()" style="display:none;"><i class="fas fa-check"></i> Завершить сборку</button>
+                    </div>
+                </div>
+
+                <!-- Блок истории конфигураций -->
+                <div class="history-block" id="historyBlock" style="display:none;">
+                    <h3>
+                        <span><i class="fas fa-history"></i> История сборок</span>
+                        <button class="btn btn-sm btn-outline" onclick="clearHistory()">Очистить историю</button>
+                    </h3>
+                    <div id="historyList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ COMPATIBILITY PAGE ============ -->
+    <div class="page" id="page-compatibility">
+        <div class="container">
+            <div class="compatibility">
+                <h1>Проверка совместимости</h1>
+                <p class="subtitle">Узнайте, подходят ли выбранные комплектующие друг к другу</p>
+
+                <div class="compat-form">
+                    <div class="form-group">
+                        <label>Процессор</label>
+                        <select id="compatCpu">
+                            <option value="xeon-gold-6430">Intel Xeon Gold 6430 (LGA4677)</option>
+                            <option value="xeon-silver-4410y">Intel Xeon Silver 4410Y (LGA4677)</option>
+                            <option value="xeon-plat-8480">Intel Xeon Platinum 8480+ (LGA4677)</option>
+                            <option value="epyc-9354">AMD EPYC 9354 (SP5)</option>
+                            <option value="epyc-9454">AMD EPYC 9454 (SP5)</option>
+                            <option value="epyc-7543">AMD EPYC 7543 (SP3)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Материнская плата</label>
+                        <select id="compatMb">
+                            <option value="supermicro-x13">Supermicro X13SAE (LGA4677, W790)</option>
+                            <option value="asus-w790">ASUS Pro WS W790E (LGA4677)</option>
+                            <option value="gigabyte-mz31">GIGABYTE MZ31-AR0 (SP5)</option>
+                            <option value="supermicro-h13">Supermicro H13SSL-NT (SP5)</option>
+                            <option value="tyan-s8030">TYAN S8030GM2NE (SP3)</option>
+                            <option value="asrock-romed8">ASRock Rack ROMED8-2T (SP3)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Оперативная память</label>
+                        <select id="compatRam">
+                            <option value="samsung-32gb-ddr5">Samsung 32GB DDR5 4800 ECC RDIMM</option>
+                            <option value="kingston-64gb-ddr5">Kingston 64GB DDR5 4800 ECC RDIMM</option>
+                            <option value="hynix-128gb-ddr5">Hynix 128GB DDR5 4800 ECC RDIMM</option>
+                            <option value="samsung-32gb-ddr4">Samsung 32GB DDR4 3200 ECC RDIMM</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="checkCompatibility()" style="width:100%; justify-content:center;">
+                        <i class="fas fa-check-circle"></i> Проверить совместимость
+                    </button>
+
+                    <div class="compat-result" id="compatResult">
+                        <div class="icon" id="compatIcon">✅</div>
+                        <div id="compatMessage">Все компоненты совместимы!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ BUILDS PAGE ============ -->
+    <div class="page" id="page-builds">
+        <div class="container builds-page">
+            <h1>Готовые сборки</h1>
+            <p class="subtitle" style="text-align:center; color:#475569; margin-bottom:32px;">Оптимальные конфигурации под разные задачи</p>
+
+            <div class="build-card">
+                <h3>🖥️ Сервер виртуализации (VMware / Proxmox)</h3>
+                <p class="build-specs">2× Intel Xeon Gold 6430, 512 GB DDR5 ECC, 4× NVMe 2TB RAID10, 2× 10GbE, 2× 1600W Titanium</p>
+                <p class="build-price">~ 1 450 000 ₽</p>
+                <p style="color:#64748b; margin-top:8px;">Идеально для запуска 30–50 виртуальных машин средней нагрузки.</p>
+                <div class="build-actions">
+                    <button class="btn btn-primary" onclick="addToCart({name:'Сборка «Сервер виртуализации»', desc:'2× Xeon Gold 6430, 512GB DDR5, 4× NVMe', price:'1 450 000 ₽'})"><i class="fas fa-cart-plus"></i> В корзину</button>
+                </div>
+            </div>
+
+            <div class="build-card">
+                <h3>📦 Сервер хранения данных (NAS / SAN)</h3>
+                <p class="build-specs">AMD EPYC 9354, 256 GB DDR5 ECC, 12× HDD 16TB SAS, 2× NVMe 2TB кэш, 2× 25GbE, 2× 1200W Platinum</p>
+                <p class="build-price">~ 980 000 ₽</p>
+                <p style="color:#64748b; margin-top:8px;">Отказоустойчивое хранилище с поддержкой ZFS и моментальных снимков.</p>
+                <div class="build-actions">
+                    <button class="btn btn-primary" onclick="addToCart({name:'Сборка «Сервер хранения данных»', desc:'EPYC 9354, 256GB DDR5, 12× HDD 16TB', price:'980 000 ₽'})"><i class="fas fa-cart-plus"></i> В корзину</button>
+                </div>
+            </div>
+
+            <div class="build-card">
+                <h3>🤖 Сервер для AI / ML</h3>
+                <p class="build-specs">AMD EPYC 9454, 512 GB DDR5 ECC, 2× NVMe 4TB, GPU NVIDIA A100, 2× 100GbE, 2× 2000W Titanium</p>
+                <p class="build-price">~ 3 200 000 ₽</p>
+                <p style="color:#64748b; margin-top:8px;">Высокопроизводительная платформа для обучения нейросетей.</p>
+                <div class="build-actions">
+                    <button class="btn btn-primary" onclick="addToCart({name:'Сборка «Сервер для AI/ML»', desc:'EPYC 9454, 512GB DDR5, A100', price:'3 200 000 ₽'})"><i class="fas fa-cart-plus"></i> В корзину</button>
+                </div>
+            </div>
+
+            <div class="build-card">
+                <h3>📡 Сервер для телекоммуникаций (5G / VoIP)</h3>
+                <p class="build-specs">Intel Xeon Silver 4410Y, 128 GB DDR5 ECC, 2× NVMe 1TB, 4× 25GbE, 2× 1200W Platinum</p>
+                <p class="build-price">~ 620 000 ₽</p>
+                <p style="color:#64748b; margin-top:8px;">Низкая задержка, высокая пропускная способность сети.</p>
+                <div class="build-actions">
+                    <button class="btn btn-primary" onclick="addToCart({name:'Сборка «Телекоммуникационный сервер»', desc:'Xeon Silver 4410Y, 128GB DDR5, 4× 25GbE', price:'620 000 ₽'})"><i class="fas fa-cart-plus"></i> В корзину</button>
+                </div>
+            </div>
+
+            <div class="build-card">
+                <h3>🔒 Сервер безопасности (IDS/IPS, файрвол)</h3>
+                <p class="build-specs">Intel Xeon Gold 6442Y, 64 GB DDR5 ECC, 2× NVMe 1TB, 2× 10GbE, 2× 800W Platinum</p>
+                <p class="build-price">~ 450 000 ₽</p>
+                <p style="color:#64748b; margin-top:8px;">Оптимизирован для глубокого анализа трафика.</p>
+                <div class="build-actions">
+                    <button class="btn btn-primary" onclick="addToCart({name:'Сборка «Сервер безопасности»', desc:'Xeon Gold 6442Y, 64GB DDR5, 2× 10GbE', price:'450 000 ₽'})"><i class="fas fa-cart-plus"></i> В корзину</button>
+                </div>
+            </div>
+
+            <div class="build-card">
+                <h3>☁️ Сервер для частного облака (OpenStack)</h3>
+                <p class="build-specs">2× AMD EPYC 9354, 512 GB DDR5 ECC, 8× NVMe 3.84TB, 2× 100GbE, 2× 2000W Titanium</p>
+                <p class="build-price">~ 2 800 000 ₽</p>
+                <p style="color:#64748b; margin-top:8px;">Масштабируемая платформа для IaaS.</p>
+                <div class="build-actions">
+                    <button class="btn btn-primary" onclick="addToCart({name:'Сборка «Частное облако»', desc:'2× EPYC 9354, 512GB DDR5, 8× NVMe', price:'2 800 000 ₽'})"><i class="fas fa-cart-plus"></i> В корзину</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ CONTACT PAGE ============ -->
+    <div class="page" id="page-contact">
+        <div class="container">
+            <div class="contact">
+                <h1>Свяжитесь с нами</h1>
+                <p class="subtitle">Есть вопросы по подбору комплектующих? Напишите нам!</p>
+
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <div class="form-group">
+                            <label>Ваше имя</label>
+                            <input type="text" placeholder="Иванов Иван" id="contactName" />
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="example@mail.ru" id="contactEmail" />
+                        </div>
+                        <div class="form-group">
+                            <label>Сообщение</label>
+                            <textarea placeholder="Опишите вашу задачу..." id="contactMessage"></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="sendContactForm()" style="width:100%; justify-content:center;">
+                            <i class="fas fa-paper-plane"></i> Отправить
+                        </button>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div><strong>Телефон</strong> +7 (495) 123-45-67</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div><strong>Email</strong> forpalach8@gmail.com</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div><strong>Адрес</strong> Саранск, ул. Васенко 40Б</div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <div><strong>Режим работы</strong> Пн–Пт: 9:00 – 20:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ ABOUT PAGE ============ -->
+    <div class="page" id="page-about">
+        <div class="container about-page">
+            <h1>О компании</h1>
+            <div class="about-content">
+                <p>ServerParts — поставщик серверных комплектующих с 2024 года. За 2+ года успешной работы мы помогли сотням компаний и частных клиентов подобрать оптимальное оборудование для ЦОД, офисов и промышленных объектов.</p>
+                <p>Мы напрямую сотрудничаем с ведущими производителями: Intel, AMD, Supermicro, ASUS, GIGABYTE, Samsung, Kingston, APC, Eaton. Все компоненты проходят тщательное тестирование совместимости перед отправкой.</p>
+                <p>Наша миссия — сделать сборку сервера такой же простой, как выбор смартфона. Благодаря удобному конфигуратору и экспертной поддержке вы получаете готовое решение за минимальное время.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PAYMENT PAGE ============ -->
+    <div class="page" id="page-payment">
+        <div class="container payment-page">
+            <h1>Оплата и доставка</h1>
+            <div class="payment-content">
+                <h3>Способы оплаты</h3>
+                <ul>
+                    <li>Банковский перевод для юридических лиц</li>
+                    <li>Оплата картой онлайн (Visa, MasterCard, МИР)</li>
+                    <li>Наличный расчёт при самовывозе</li>
+                </ul>
+                <h3>Доставка</h3>
+                <ul>
+                    <li>Курьерская доставка по Саранску — от 500 ₽</li>
+                    <li>Транспортные компании (Деловые Линии, СДЭК) — от 3 рабочих дней</li>
+                    <li>Самовывоз со склада: Саранск, ул. Васенко 40Б</li>
+                </ul>
+                <h3>Гарантия и возврат</h3>
+                <p>Все комплектующие имеют официальную гарантию производителя от 12 до 60 месяцев. Возврат возможен в течение 14 дней при сохранении товарного вида.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5>Каталог</h5>
+                    <ul>
+                        <li><a onclick="navigateTo('catalog')">Процессоры</a></li>
+                        <li><a onclick="navigateTo('catalog')">Память</a></li>
+                        <li><a onclick="navigateTo('catalog')">Диски</a></li>
+                        <li><a onclick="navigateTo('catalog')">Сетевое</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Сервисы</h5>
+                    <ul>
+                        <li><a onclick="navigateTo('configurator')">Конфигуратор</a></li>
+                        <li><a onclick="navigateTo('compatibility')">Совместимость</a></li>
+                        <li><a onclick="navigateTo('builds')">Готовые сборки</a></li>
+                        <li><a onclick="navigateTo('payment')">Оплата и доставка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Компания</h5>
+                    <ul>
+                        <li><a onclick="navigateTo('about')">О нас</a></li>
+                        <li><a onclick="navigateTo('contact')">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Контакты</h5>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> forpalach8@gmail.com</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Саранск, ул. Васенко 40Б</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 ServerParts. Все права защищены.</span>
+                <div class="socials">
+                    <i class="fab fa-telegram" onclick="showToast('Telegram')"></i>
+                    <i class="fab fa-vk" onclick="showToast('VK')"></i>
+                    <i class="fab fa-youtube" onclick="showToast('YouTube')"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // =============================================
+        //  GLOBAL STATE
+        // =============================================
+        let cart = [];
+        let currentCatalogTab = 'all';
+        let priceFilter = { from: null, to: null };
+
+        // =============================================
+        //  SPA Navigation
+        // =============================================
+        const pages = {
+            home: document.getElementById('page-home'),
+            catalog: document.getElementById('page-catalog'),
+            configurator: document.getElementById('page-configurator'),
+            compatibility: document.getElementById('page-compatibility'),
+            contact: document.getElementById('page-contact'),
+            login: document.getElementById('page-login'),
+            builds: document.getElementById('page-builds'),
+            payment: document.getElementById('page-payment'),
+            cart: document.getElementById('page-cart'),
+            about: document.getElementById('page-about')
+        };
+
+        const navLinks = document.querySelectorAll('.nav a[data-page]');
+
+        function navigateTo(pageId) {
+            Object.values(pages).forEach(p => p.classList.remove('active'));
+            if (pages[pageId]) pages[pageId].classList.add('active');
+
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.page === pageId);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (pageId === 'catalog') renderCatalog(currentCatalogTab);
+            if (pageId === 'configurator') {
+                initConfigurator();
+                renderHistory();
+            }
+            if (pageId === 'cart') renderCartPage();
+        }
+
+        // =============================================
+        //  Toast notifications
+        // =============================================
+        let toastTimeout;
+
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                el.classList.remove('show');
+            }, 2500);
+        }
+
+        // =============================================
+        //  CART LOGIC
+        // =============================================
+        function addToCart(item) {
+            cart.push(item);
+            updateCartBadge();
+            showToast(item.name + ' добавлен в корзину');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartBadge();
+            if (document.getElementById('page-cart').classList.contains('active')) {
+                renderCartPage();
+            }
+            showToast('Товар удалён из корзины');
+        }
+
+        function updateCartBadge() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function openCart() {
+            if (cart.length === 0) {
+                showToast('Корзина пуста');
+                return;
+            }
+            navigateTo('cart');
+        }
+
+        function closeCart() {
+            navigateTo('home');
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartBadge();
+        }
+
+        function renderCartPage() {
+            const container = document.getElementById('cartPageContent');
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="cart-empty"><i class="fas fa-shopping-cart" style="font-size:3rem; display:block; margin-bottom:16px;"></i>Корзина пуста</div>';
+                return;
+            }
+            let total = 0;
+            let html = '<div class="cart-table"><table style="width:100%; border-collapse:collapse;"><thead><tr><th>Товар</th><th>Цена</th><th></th></tr></thead><tbody>';
+            cart.forEach((item, i) => {
+                const price = parseInt(item.price.replace(/[^0-9]/g, ''));
+                total += price;
+                html += `<tr>
+                    <td><strong>${item.name}</strong><br><small style="color:#64748b;">${item.desc}</small></td>
+                    <td style="font-weight:600;">${item.price}</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="removeFromCart(${i})"><i class="fas fa-trash"></i></button></td>
+                </tr>`;
+            });
+            html += `<tr><td colspan="3" style="text-align:right; font-weight:700; font-size:1.2rem;">Итого: ${total.toLocaleString()} ₽</td></tr>`;
+            html += '</tbody></table></div>';
+            container.innerHTML = html;
+        }
+
+        // =============================================
+        //  CATALOG DATA (расширенный, 70+ моделей)
+        // =============================================
+        const catalogData = [
+            // Процессоры (7)
+            { id: 1, cat: 'cpu', name: 'Intel Xeon Gold 6430', desc: '32 ядра, 2.1 ГГц, LGA4677, DDR5', price: '210 000 ₽', icon: 'fa-microchip', numPrice: 210000 },
+            { id: 2, cat: 'cpu', name: 'Intel Xeon Silver 4410Y', desc: '12 ядер, 2.0 ГГц, LGA4677, DDR5', price: '68 000 ₽', icon: 'fa-microchip', numPrice: 68000 },
+            { id: 3, cat: 'cpu', name: 'Intel Xeon Platinum 8480+', desc: '56 ядер, 2.0 ГГц, LGA4677, DDR5', price: '1 200 000 ₽', icon: 'fa-microchip', numPrice: 1200000 },
+            { id: 4, cat: 'cpu', name: 'Intel Xeon Gold 6442Y', desc: '24 ядра, 2.0 ГГц, LGA4677, DDR5', price: '160 000 ₽', icon: 'fa-microchip', numPrice: 160000 },
+            { id: 5, cat: 'cpu', name: 'AMD EPYC 9354', desc: '32 ядра, 3.25 ГГц, SP5, DDR5', price: '185 000 ₽', icon: 'fa-microchip', numPrice: 185000 },
+            { id: 6, cat: 'cpu', name: 'AMD EPYC 9454', desc: '48 ядер, 2.75 ГГц, SP5, DDR5', price: '310 000 ₽', icon: 'fa-microchip', numPrice: 310000 },
+            { id: 7, cat: 'cpu', name: 'AMD EPYC 7543', desc: '32 ядра, 2.8 ГГц, SP3, DDR4', price: '140 000 ₽', icon: 'fa-microchip', numPrice: 140000 },
+            { id: 8, cat: 'cpu', name: 'AMD EPYC 9654', desc: '96 ядер, 2.4 ГГц, SP5, DDR5', price: '780 000 ₽', icon: 'fa-microchip', numPrice: 780000 },
+            // Память (8)
+            { id: 9, cat: 'ram', name: 'Samsung 32GB DDR5 4800 ECC RDIMM', desc: '1Rx4, CL40, 1.1V', price: '9 800 ₽', icon: 'fa-memory', numPrice: 9800 },
+            { id: 10, cat: 'ram', name: 'Kingston 64GB DDR5 4800 ECC RDIMM', desc: '2Rx4, CL40, 1.1V', price: '18 500 ₽', icon: 'fa-memory', numPrice: 18500 },
+            { id: 11, cat: 'ram', name: 'Hynix 128GB DDR5 4800 ECC RDIMM', desc: '4Rx4, CL46, 1.1V', price: '42 000 ₽', icon: 'fa-memory', numPrice: 42000 },
+            { id: 12, cat: 'ram', name: 'Micron 64GB DDR5 5600 ECC RDIMM', desc: '2Rx4, CL46, 1.1V', price: '22 000 ₽', icon: 'fa-memory', numPrice: 22000 },
+            { id: 13, cat: 'ram', name: 'Samsung 16GB DDR5 4800 ECC RDIMM', desc: '1Rx8, CL40, 1.1V', price: '5 200 ₽', icon: 'fa-memory', numPrice: 5200 },
+            { id: 14, cat: 'ram', name: 'Samsung 32GB DDR4 3200 ECC RDIMM', desc: '2Rx4, CL22', price: '7 200 ₽', icon: 'fa-memory', numPrice: 7200 },
+            { id: 15, cat: 'ram', name: 'Kingston 32GB DDR5 4800 ECC RDIMM', desc: '2Rx8, CL40', price: '10 500 ₽', icon: 'fa-memory', numPrice: 10500 },
+            { id: 16, cat: 'ram', name: 'Micron 32GB DDR4 2933 ECC RDIMM', desc: '2Rx4, CL21', price: '6 800 ₽', icon: 'fa-memory', numPrice: 6800 },
+            // Накопители (8)
+            { id: 17, cat: 'storage', name: 'WD Ultrastar DC SN861 3.84TB NVMe U.2', desc: 'PCIe 5.0, 13700/7200 MB/s', price: '48 000 ₽', icon: 'fa-hdd', numPrice: 48000 },
+            { id: 18, cat: 'storage', name: 'Kingston DC3000ME 7.68TB NVMe U.2', desc: 'PCIe 5.0, 14000 MB/s read', price: '89 000 ₽', icon: 'fa-hdd', numPrice: 89000 },
+            { id: 19, cat: 'storage', name: 'Samsung PM9A3 1.92TB NVMe U.2', desc: 'PCIe 4.0, 7000/5500 MB/s', price: '22 000 ₽', icon: 'fa-hdd', numPrice: 22000 },
+            { id: 20, cat: 'storage', name: 'WD Gold 16TB SATA HDD', desc: '7200 RPM, 512MB кэш', price: '38 000 ₽', icon: 'fa-hdd', numPrice: 38000 },
+            { id: 21, cat: 'storage', name: 'Seagate Exos X20 20TB SAS', desc: '7200 RPM, 256MB кэш', price: '52 000 ₽', icon: 'fa-hdd', numPrice: 52000 },
+            { id: 22, cat: 'storage', name: 'Intel Optane P5800X 800GB', desc: 'PCIe 4.0, 3D XPoint', price: '95 000 ₽', icon: 'fa-hdd', numPrice: 95000 },
+            { id: 23, cat: 'storage', name: 'Samsung PM9A3 7.68TB NVMe U.2', desc: 'PCIe 4.0, 7000/5500 MB/s', price: '85 000 ₽', icon: 'fa-hdd', numPrice: 85000 },
+            { id: 24, cat: 'storage', name: 'Intel DC P4510 8TB NVMe U.2', desc: 'PCIe 3.1, 3200/3000 MB/s', price: '95 000 ₽', icon: 'fa-hdd', numPrice: 95000 },
+            { id: 25, cat: 'storage', name: 'WD Red Pro 20TB SATA HDD', desc: '7200 RPM, 512MB кэш', price: '62 000 ₽', icon: 'fa-hdd', numPrice: 62000 },
+            // Материнские платы (7)
+            { id: 26, cat: 'mb', name: 'Supermicro X13SAE', desc: 'LGA4677, W790, DDR5, ATX', price: '42 000 ₽', icon: 'fa-server', numPrice: 42000 },
+            { id: 27, cat: 'mb', name: 'ASUS Pro WS W790E', desc: 'LGA4677, W790, DDR5, E-ATX', price: '55 000 ₽', icon: 'fa-server', numPrice: 55000 },
+            { id: 28, cat: 'mb', name: 'GIGABYTE MZ31-AR0', desc: 'SP5, EPYC 9004, DDR5, E-ATX', price: '38 000 ₽', icon: 'fa-server', numPrice: 38000 },
+            { id: 29, cat: 'mb', name: 'Supermicro H13SSL-NT', desc: 'SP5, EPYC 9004, DDR5, ATX', price: '48 000 ₽', icon: 'fa-server', numPrice: 48000 },
+            { id: 30, cat: 'mb', name: 'TYAN S8030GM2NE', desc: 'SP3, EPYC 7003, DDR4, ATX', price: '28 000 ₽', icon: 'fa-server', numPrice: 28000 },
+            { id: 31, cat: 'mb', name: 'ASRock Rack ROMED8-2T', desc: 'SP3, EPYC 7002/7003, DDR4, ATX', price: '35 000 ₽', icon: 'fa-server', numPrice: 35000 },
+            { id: 32, cat: 'mb', name: 'Supermicro H12SSL-NT', desc: 'SP3, EPYC 7002/7003, DDR4, ATX', price: '44 000 ₽', icon: 'fa-server', numPrice: 44000 },
+            // Блоки питания (6)
+            { id: 33, cat: 'psu', name: 'FSP 1600W Titanium CRPS', desc: '80+ Titanium, Redundant, PMBus', price: '45 000 ₽', icon: 'fa-bolt', numPrice: 45000 },
+            { id: 34, cat: 'psu', name: 'Gigabyte 2000W Titanium Redundant', desc: '80+ Titanium, 1U, PMBus', price: '58 000 ₽', icon: 'fa-bolt', numPrice: 58000 },
+            { id: 35, cat: 'psu', name: 'Corsair AX1600i', desc: '1600W, 80+ Titanium, ATX', price: '49 000 ₽', icon: 'fa-bolt', numPrice: 49000 },
+            { id: 36, cat: 'psu', name: 'FSP 1200W Platinum CRPS', desc: '80+ Platinum, Redundant', price: '32 000 ₽', icon: 'fa-bolt', numPrice: 32000 },
+            { id: 37, cat: 'psu', name: 'Delta DPS-1600AB', desc: '1600W, 80+ Platinum, Redundant', price: '38 000 ₽', icon: 'fa-bolt', numPrice: 38000 },
+            { id: 38, cat: 'psu', name: 'Supermicro PWS-2K04A-1R', desc: '2000W, 80+ Titanium, Redundant', price: '55 000 ₽', icon: 'fa-bolt', numPrice: 55000 },
+            // Сетевые карты (6)
+            { id: 39, cat: 'net', name: 'Intel X710-DA2', desc: '2×10GbE SFP+', price: '15 200 ₽', icon: 'fa-network-wired', numPrice: 15200 },
+            { id: 40, cat: 'net', name: 'Mellanox ConnectX-6 Dx', desc: '2×100GbE QSFP56', price: '65 000 ₽', icon: 'fa-network-wired', numPrice: 65000 },
+            { id: 41, cat: 'net', name: 'Broadcom BCM957414', desc: '2×25GbE SFP28', price: '28 000 ₽', icon: 'fa-network-wired', numPrice: 28000 },
+            { id: 42, cat: 'net', name: 'Intel E810-CQDA2', desc: '2×100GbE QSFP28', price: '72 000 ₽', icon: 'fa-network-wired', numPrice: 72000 },
+            { id: 43, cat: 'net', name: 'Intel X520-DA2', desc: '2×10GbE SFP+', price: '8 500 ₽', icon: 'fa-network-wired', numPrice: 8500 },
+            { id: 44, cat: 'net', name: 'Mellanox ConnectX-4 Lx', desc: '2×25GbE SFP28', price: '18 000 ₽', icon: 'fa-network-wired', numPrice: 18000 },
+            // Кабели и коммутация (7)
+            { id: 45, cat: 'cables', name: 'Кабель SFP+ DAC 3м', desc: '10GbE, пассивный', price: '2 800 ₽', icon: 'fa-plug', numPrice: 2800 },
+            { id: 46, cat: 'cables', name: 'Кабель QSFP28 DAC 5м', desc: '100GbE, пассивный', price: '8 500 ₽', icon: 'fa-plug', numPrice: 8500 },
+            { id: 47, cat: 'cables', name: 'Оптический патч-корд LC-LC 10м', desc: 'OS2, одномодовый', price: '1 200 ₽', icon: 'fa-plug', numPrice: 1200 },
+            { id: 48, cat: 'cables', name: 'Медиаконвертер 10G SFP+', desc: 'SFP+ в RJ45', price: '4 500 ₽', icon: 'fa-exchange-alt', numPrice: 4500 },
+            { id: 49, cat: 'cables', name: 'Патч-панель 24 порта Cat6A', desc: '1U, экранированная', price: '6 800 ₽', icon: 'fa-th', numPrice: 6800 },
+            { id: 50, cat: 'cables', name: 'Трансивер SFP28 25GbE SR', desc: '850nm, до 100м', price: '6 000 ₽', icon: 'fa-plug', numPrice: 6000 },
+            { id: 51, cat: 'cables', name: 'Трансивер QSFP28 100GbE LR4', desc: '1310nm, до 10км', price: '35 000 ₽', icon: 'fa-plug', numPrice: 35000 },
+            // ИБП (6)
+            { id: 52, cat: 'ups', name: 'APC Smart-UPS SMT3000RMI2U', desc: '3000VA / 2700W, 2U, Rackmount', price: '85 000 ₽', icon: 'fa-battery-full', numPrice: 85000 },
+            { id: 53, cat: 'ups', name: 'Eaton 9PX3000IRTN', desc: '3000VA / 2400W, 2U, Online', price: '92 000 ₽', icon: 'fa-battery-full', numPrice: 92000 },
+            { id: 54, cat: 'ups', name: 'APC Smart-UPS SRT2200XLI', desc: '2200VA / 2200W, 2U, Online', price: '68 000 ₽', icon: 'fa-battery-full', numPrice: 68000 },
+            { id: 55, cat: 'ups', name: 'Eaton 9PX6000IRTN', desc: '6000VA / 5400W, 3U, Online', price: '145 000 ₽', icon: 'fa-battery-full', numPrice: 145000 },
+            { id: 56, cat: 'ups', name: 'Delta Ultron HPH 20kVA', desc: '20kVA / 16000W, 12U, Online', price: '420 000 ₽', icon: 'fa-battery-full', numPrice: 420000 },
+            { id: 57, cat: 'ups', name: 'Eaton 9PX10KIRTN', desc: '10kVA / 9000W, 6U, Online', price: '260 000 ₽', icon: 'fa-battery-full', numPrice: 260000 },
+            // Шкафы и стойки (6)
+            { id: 58, cat: 'rack', name: 'Eaton Tripp Lite SR42UBDP48', desc: '42U, 48" глубина, 3500 lbs', price: '120 000 ₽', icon: 'fa-box', numPrice: 120000 },
+            { id: 59, cat: 'rack', name: 'Dell PowerEdge 4220', desc: '42U, 42" глубина, 2500 lbs', price: '98 000 ₽', icon: 'fa-box', numPrice: 98000 },
+            { id: 60, cat: 'rack', name: 'APC NetShelter SX 42U', desc: '42U, 600×1070 мм', price: '85 000 ₽', icon: 'fa-box', numPrice: 85000 },
+            { id: 61, cat: 'rack', name: 'Eaton Tripp Lite SR42UBEXPND', desc: '42U, открытая стойка, 4 стойки', price: '55 000 ₽', icon: 'fa-box', numPrice: 55000 },
+            { id: 62, cat: 'rack', name: 'Rittal TS IT 42U', desc: '42U, 600×1070 мм, IP20', price: '130 000 ₽', icon: 'fa-box', numPrice: 130000 },
+            { id: 63, cat: 'rack', name: 'Chatsworth 42U 1070mm', desc: '42U, 600×1070 мм, white', price: '110 000 ₽', icon: 'fa-box', numPrice: 110000 },
+        ];
+
+        function applyPriceFilter() {
+            const from = parseInt(document.getElementById('priceFrom').value) || null;
+            const to = parseInt(document.getElementById('priceTo').value) || null;
+            priceFilter = { from, to };
+            renderCatalog(currentCatalogTab);
+            showToast('Фильтр применён');
+        }
+
+        function resetPriceFilter() {
+            document.getElementById('priceFrom').value = '';
+            document.getElementById('priceTo').value = '';
+            priceFilter = { from: null, to: null };
+            renderCatalog(currentCatalogTab);
+            showToast('Сброс фильтров');
+        }
+
+        function renderCatalog(cat = 'all') {
+            currentCatalogTab = cat;
+            const grid = document.getElementById('catalogGrid');
+            let items = catalogData;
+            if (cat !== 'all') {
+                items = items.filter(i => i.cat === cat);
+            }
+            if (priceFilter.from !== null) {
+                items = items.filter(i => i.numPrice >= priceFilter.from);
+            }
+            if (priceFilter.to !== null) {
+                items = items.filter(i => i.numPrice <= priceFilter.to);
+            }
+
+            // Update tabs
+            document.querySelectorAll('#catalogTabs .catalog-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.cat === cat);
+            });
+
+            grid.innerHTML = items.map(item => `
+            <div class="catalog-item">
+              <div class="item-icon"><i class="fas ${item.icon}"></i></div>
+              <h4>${item.name}</h4>
+              <div class="specs">${item.desc}</div>
+              <div class="price">${item.price}</div>
+              <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="event.stopPropagation(); addToCart({name: '${item.name}', desc: '${item.desc}', price: '${item.price}'})">
+                <i class="fas fa-cart-plus"></i> В корзину
+              </button>
+            </div>
+          `).join('');
+        }
+
+        // Catalog tabs click
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('catalogTabs').addEventListener('click', function(e) {
+                if (e.target.classList.contains('catalog-tab')) {
+                    renderCatalog(e.target.dataset.cat);
+                }
+            });
+            renderCatalog();
+            initConfigurator();
+        });
+
+        // =============================================
+        //  LOGIN PAGE TABS
+        // =============================================
+        function switchLoginTab(tab) {
+            document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+            document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
+            document.getElementById('formLogin').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('formRegister').style.display = tab === 'register' ? 'block' : 'none';
+        }
+
+        // =============================================
+        //  CONFIGURATOR (расширенный, с улучшенной совместимостью и историей)
+        // =============================================
+        const configSteps = [
+            { title: 'Выберите процессор', options: [
+                'Intel Xeon Gold 6430', 'Intel Xeon Silver 4410Y', 'Intel Xeon Platinum 8480+', 'Intel Xeon Gold 6442Y',
+                'AMD EPYC 9354', 'AMD EPYC 9454', 'AMD EPYC 9654', 'AMD EPYC 7543'
+            ], cat: 'cpu' },
+            { title: 'Выберите материнскую плату', options: [
+                'Supermicro X13SAE (LGA4677)', 'ASUS Pro WS W790E (LGA4677)',
+                'GIGABYTE MZ31-AR0 (SP5)', 'Supermicro H13SSL-NT (SP5)',
+                'TYAN S8030GM2NE (SP3)', 'ASRock Rack ROMED8-2T (SP3)', 'Supermicro H12SSL-NT (SP3)'
+            ], cat: 'mb' },
+            { title: 'Выберите оперативную память', options: [
+                'Samsung 32GB DDR5 4800', 'Kingston 64GB DDR5 4800', 'Hynix 128GB DDR5 4800',
+                'Micron 64GB DDR5 5600', 'Samsung 32GB DDR4 3200', 'Micron 32GB DDR4 2933'
+            ], cat: 'ram' },
+            { title: 'Выберите накопители', options: [
+                'WD SN861 3.84TB NVMe', 'Kingston DC3000ME 7.68TB NVMe', 'WD Gold 16TB SATA',
+                'Seagate Exos X20 20TB SAS', 'Samsung PM9A3 7.68TB NVMe', 'Intel Optane P5800X 800GB'
+            ], cat: 'storage' },
+            { title: 'Выберите блок питания', options: [
+                'FSP 1600W Titanium', 'Gigabyte 2000W Titanium', 'Corsair AX1600i', 'FSP 1200W Platinum',
+                'Delta DPS-1600AB', 'Supermicro PWS-2K04A-1R'
+            ], cat: 'psu' },
+            { title: 'Выберите сетевую карту', options: [
+                'Intel X710-DA2 (2×10GbE)', 'Mellanox ConnectX-6 Dx (2×100GbE)', 'Broadcom BCM957414 (2×25GbE)',
+                'Intel E810-CQDA2 (2×100GbE)', 'Mellanox ConnectX-4 Lx (2×25GbE)'
+            ], cat: 'net' },
+            { title: 'Выберите ИБП', options: [
+                'APC SMT3000RMI2U (3000VA)', 'Eaton 9PX3000IRTN (3000VA)', 'Eaton 9PX6000IRTN (6000VA)',
+                'Delta Ultron HPH 20kVA', 'Eaton 9PX10KIRTN (10kVA)'
+            ], cat: 'ups' },
+            { title: 'Выберите шкаф', options: [
+                'Eaton Tripp Lite SR42UBDP48 (42U)', 'Dell PowerEdge 4220 (42U)', 'APC NetShelter SX 42U',
+                'Rittal TS IT 42U', 'Chatsworth 42U 1070mm'
+            ], cat: 'rack' },
+        ];
+
+        let configCurrentStep = 0;
+        let configSelections = [];
+        // История конфигов
+        let configHistory = JSON.parse(localStorage.getItem('serverPartsConfigHistory') || '[]');
+
+        function initConfigurator() {
+            configCurrentStep = 0;
+            configSelections = [];
+            updateConfigStep();
+        }
+
+        function saveConfigToHistory() {
+            const chosen = configSelections.map((idx, step) => configSteps[step].options[idx]);
+            const entry = {
+                date: new Date().toLocaleString(),
+                components: chosen
+            };
+            configHistory.unshift(entry); // добавляем в начало
+            if (configHistory.length > 20) configHistory.pop(); // храним последние 20
+            localStorage.setItem('serverPartsConfigHistory', JSON.stringify(configHistory));
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const historyBlock = document.getElementById('historyBlock');
+            const historyList = document.getElementById('historyList');
+            if (configHistory.length === 0) {
+                historyBlock.style.display = 'none';
+                return;
+            }
+            historyBlock.style.display = 'block';
+            historyList.innerHTML = configHistory.map((entry, index) => `
+                <div class="history-item">
+                    <div class="conf-name">Сборка #${index + 1}</div>
+                    <div class="conf-details">${entry.components.join(' • ')}</div>
+                    <div class="conf-date">${entry.date}</div>
+                </div>
+            `).join('');
+        }
+
+        function clearHistory() {
+            if (confirm('Удалить всю историю сборок?')) {
+                configHistory = [];
+                localStorage.removeItem('serverPartsConfigHistory');
+                renderHistory();
+                showToast('История очищена');
+            }
+        }
+
+        // Обновлённая карта совместимости
+        const compatMap = {
+            'xeon': ['LGA4677', 'W790'], // платформы
+            'epyc-9004': ['SP5', 'GIGABYTE MZ31', 'Supermicro H13'],
+            'epyc-7003': ['SP3', 'TYAN S8030', 'ASRock ROMED8', 'Supermicro H12']
+        };
+
+        function getCpuPlatform(cpuName) {
+            if (cpuName.includes('EPYC') && (cpuName.includes('9354') || cpuName.includes('9454') || cpuName.includes('9654'))) return 'epyc-9004';
+            if (cpuName.includes('EPYC') && (cpuName.includes('7543'))) return 'epyc-7003';
+            if (cpuName.includes('Xeon')) return 'xeon';
+            return null;
+        }
+
+        function checkConfigCompatibility() {
+            const cpuIdx = configSelections[0];
+            const mbIdx = configSelections[1];
+            if (cpuIdx === undefined || mbIdx === undefined) return { ok: true, msg: '' };
+
+            const cpuName = configSteps[0].options[cpuIdx];
+            const mbName = configSteps[1].options[mbIdx];
+            const cpuPlatform = getCpuPlatform(cpuName);
+
+            if (!cpuPlatform) return { ok: true, msg: '' };
+
+            const mbPlatforms = compatMap[cpuPlatform] || [];
+            const isCompatible = mbPlatforms.some(prefix => mbName.includes(prefix));
+
+            if (!isCompatible) {
+                return { ok: false, msg: '⚠️ Процессор и материнская плата несовместимы! Проверьте сокет и чипсет.' };
+            }
+
+            // Проверка памяти
+            if (configSelections[2] !== undefined) {
+                const ramName = configSteps[2].options[configSelections[2]];
+                if (cpuPlatform === 'xeon' && ramName.includes('DDR4')) {
+                    return { ok: false, msg: '⚠️ Процессор Intel Xeon 4-го поколения требует DDR5.' };
+                }
+                if (cpuPlatform === 'epyc-9004' && ramName.includes('DDR4')) {
+                    return { ok: false, msg: '⚠️ EPYC 9004 требует DDR5.' };
+                }
+                if (cpuPlatform === 'epyc-7003' && ramName.includes('DDR5')) {
+                    return { ok: false, msg: '⚠️ EPYC 7003 поддерживает только DDR4.' };
+                }
+            }
+            return { ok: true, msg: '✅ Компоненты совместимы!' };
+        }
+
+        function updateConfigStep() {
+            const stepData = configSteps[configCurrentStep];
+            document.getElementById('configStepTitle').textContent = stepData.title;
+            const container = document.getElementById('configOptions');
+            container.innerHTML = stepData.options.map((opt, idx) => `
+            <div class="config-option ${configSelections[configCurrentStep] === idx ? 'selected' : ''}" 
+                 onclick="selectConfigOption(${idx})">
+              <div class="opt-name">${opt}</div>
+            </div>
+          `).join('');
+
+            // Steps indicators
+            const steps = document.querySelectorAll('#configSteps .step');
+            steps.forEach((el, i) => {
+                el.classList.remove('active', 'done');
+                if (i === configCurrentStep) el.classList.add('active');
+                else if (i < configCurrentStep) el.classList.add('done');
+            });
+
+            // Buttons
+            document.getElementById('configPrev').style.display = configCurrentStep === 0 ? 'none' : 'inline-flex';
+            document.getElementById('configNext').style.display = configCurrentStep < configSteps.length - 1 ? 'inline-flex' : 'none';
+            document.getElementById('configFinish').style.display = configCurrentStep === configSteps.length - 1 ? 'inline-flex' : 'none';
+
+            // Compatibility check
+            const compat = checkConfigCompatibility();
+            const warnEl = document.getElementById('compatWarning');
+            if (compat.msg) {
+                warnEl.textContent = compat.msg;
+                warnEl.className = 'compat-warning show ' + (compat.ok ? 'ok' : 'error');
+            } else {
+                warnEl.className = 'compat-warning';
+            }
+        }
+
+        function selectConfigOption(idx) {
+            configSelections[configCurrentStep] = idx;
+            updateConfigStep();
+        }
+
+        function configNext() {
+            if (configSelections[configCurrentStep] === undefined) {
+                showToast('⚠️ Сначала выберите вариант');
+                return;
+            }
+            if (configCurrentStep < configSteps.length - 1) {
+                configCurrentStep++;
+                updateConfigStep();
+            }
+        }
+
+        function configPrev() {
+            if (configCurrentStep > 0) {
+                configCurrentStep--;
+                updateConfigStep();
+            }
+        }
+
+        function configFinish() {
+            if (configSelections.includes(undefined)) {
+                showToast('⚠️ Выберите все компоненты');
+                return;
+            }
+            const compat = checkConfigCompatibility();
+            if (!compat.ok) {
+                showToast('⚠️ Конфигурация несовместима!');
+                return;
+            }
+            // Сохраняем в историю
+            saveConfigToHistory();
+            const chosen = configSelections.map((idx, step) => configSteps[step].options[idx]);
+            showToast('✅ Сборка завершена и сохранена в истории! ' + chosen.join(' • '));
+            // Сброс к началу
+            setTimeout(() => {
+                configCurrentStep = 0;
+                configSelections = [];
+                updateConfigStep();
+            }, 1000);
+        }
+
+        // =============================================
+        //  COMPATIBILITY
+        // =============================================
+        function checkCompatibility() {
+            const cpu = document.getElementById('compatCpu').value;
+            const mb = document.getElementById('compatMb').value;
+            const ram = document.getElementById('compatRam').value;
+
+            const result = document.getElementById('compatResult');
+            const icon = document.getElementById('compatIcon');
+            const msg = document.getElementById('compatMessage');
+
+            let compatible = true;
+            let warnings = [];
+
+            // Проверка Intel vs AMD платформ
+            if (cpu.startsWith('xeon') && mb.startsWith('gigabyte')) {
+                compatible = false;
+                warnings.push('Процессор Intel Xeon несовместим с GIGABYTE MZ31-AR0 (AMD EPYC)');
+            }
+            if (cpu.startsWith('epyc') && (mb.startsWith('supermicro-x13') || mb.startsWith('asus-w790'))) {
+                compatible = false;
+                warnings.push('Процессор AMD EPYC несовместим с материнской платой для Intel Xeon');
+            }
+            // Совместимость памяти
+            if (cpu.includes('epyc-9354') || cpu.includes('epyc-9454')) {
+                if (ram.includes('DDR4')) {
+                    compatible = false;
+                    warnings.push('EPYC 9004 требует DDR5');
+                }
+            }
+            if (cpu.includes('epyc-7543') && ram.includes('DDR5')) {
+                compatible = false;
+                warnings.push('EPYC 7003 поддерживает только DDR4');
+            }
+            if ((cpu.includes('xeon') || cpu.includes('intel')) && ram.includes('DDR4') && mb.includes('supermicro-x13')) {
+                compatible = false;
+                warnings.push('Платформа LGA4677 требует DDR5');
+            }
+
+            result.classList.add('show');
+            if (compatible) {
+                icon.className = 'icon success fas fa-check-circle';
+                msg.textContent = '✅ Все компоненты совместимы! Можно собирать сервер.';
+            } else {
+                icon.className = 'icon error fas fa-times-circle';
+                msg.textContent = '❌ Обнаружены проблемы: ' + warnings.join('; ');
+            }
+        }
+
+        // =============================================
+        //  CONTACT FORM
+        // =============================================
+        function sendContactForm() {
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            if (!name || !email || !message) {
+                showToast('⚠️ Заполните все поля');
+                return;
+            }
+            showToast('✅ Сообщение отправлено! Мы свяжемся с вами.');
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMessage').value = '';
+        }
+
+        // =============================================
+        //  Init on load
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartBadge();
+            // При загрузке страницы конфигуратора история уже может быть видна
+            renderHistory();
+        });
+    </script>
+
+</body>
+</html>
